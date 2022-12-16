@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/provincias
+content-type: application/json
+
+{
+  "nombre": "Alacant/Alicante",
+  "capital": "Alicante/Alacant",
+  "autonomia": "Comunitat Valenciana",
+  "codine": "04"
+}
