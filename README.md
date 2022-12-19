@@ -1,5 +1,14 @@
 # 📚 Learning Node JS
 
+---
+
+* Paquetes NPM interesantes [🔗 enlace](./documents/npm-packets.md).
+* Configurar un stack de desarrollo para NodeJS + ExpressJS [🔗 enlace](./documents/config-stack.npm).
+* Gestión de varias versiones de **NodeJS** en la misma máquina [🔗 enlace](./documents/nvm-node-multiversion.md).
+* Configurando Node - Express - MongoDB [🔗 enlace](./documents/MEN-config.md).
+
+---
+
 Javascript se crea en 1995 por **Brendan Eich** para *Netscape Navigator* como lenguaje de programación del lado del cliente. En el lado del servido siempre han dominado mlenguajes como PHP, Python o Java. Su restricción al lado cliente ha hecho que Javascript fuera considerado un lenguaje menor.
 
 El lanzamiento de Firefox en 2002 y Safari 2003 propician la aparición de aplicaciones web con una enorme exigencia en el Javascript del navegador. En 2008 aparece Chrome con el motor V8 de Javascript desarrollado por Lars Bak que multiplicana por 20 el rendimiento del Javascript en ese navegador.
@@ -167,10 +176,56 @@ Pero cuando creamos el script del `package.json`, basta con escribir el comando 
   },
 ```
 
+### 🔵 Definiendo nuestro *code style* - Linters
 
+El *code linter* más extendido es EsLint. Los desarrolladores utilicen linters de código para asegurarse de que su código siga las prácticas recomendadas y mantener un estilo uniforme. Si bien esto es útil para el desarrollo, solo aumenta el tamaño del código que puede distribuirse y no proporciona un beneficio tangible cuando se implementa en producción. Por esllo lo instalamos como desarrollo.
 
+```sh
+# Instalamos dependencia de desarrollo
+$ npm install eslint -D
+# Inicializamos el eslint
+$ npx eslint --init         # Opción de configuración 1
+$ npm init @eslint/config   # Opción de configuración 2
+```
 
-Los desarrolladores utilicen linters de código para asegurarse de que su código siga las prácticas recomendadas y mantener un estilo uniforme. Si bien esto es útil para el desarrollo, solo aumenta el tamaño del código que puede distribuirse y no proporciona un beneficio tangible cuando se implementa en producción.
+Esto genera un fichero `.eslintrc.js` con nuestra configuración, a la que podemos añadir, quitar o modificar reglas. Por ejemplo, la variable `process` aunque no esté definida está disponible en NodeJS. Para que no nos marque como error su uso:
+
+```json
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es2021": true,
+		"node": true, /* 👈 Añadimos esta línea para indicar a eslint que estamos con NodeJS */
+	},
+```
+
+Después de instalar todo, podemos ver y configurar nuestro *linter* de código con el fichero de configuración `.eslintrc.cjs`. Podemos analizar un fichero así:
+
+```bash
+npx eslint ./src/main.jsx # Nos devolverá por pantalla una lista de errores
+npx eslint ./src/main.jsx --fix # Nos permitirá arreglar los errores automáticos
+```
+
+Las extensiones **Eslint** o **Error Lens** de **VSCode** nos ayudan a trabajar con este *linter*. Es mejor usar una **Guía popular de errores**. Yo uso 👍 la **Standard** y desaconsejo 👎 la de AirBnB. De hecho, podemos instalar el *linter* de **standard**, que se basa en **esLint**, sin tener que instalar el propio **esLint**.
+
+#### Usando el *linter* **standard**
+
+La instalación es así:
+
+```sh
+npm install standard -D
+```
+
+Y en el fichero de configuración del `package.json`, añadimos:
+
+```json
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
+```
+
+Podremos agregar reglas para redefinir el comportamiento de esLint en el fivchero de configuración. [Aquí tenemos un ejemplo](https://eslint.org/docs/latest/rules/no-console) de cómo permitir que haya llamadas a la consola en código.
+
 
 ### 🔵 Errores
 
@@ -190,12 +245,9 @@ Error de permisos. Es bastante frecuente tener este problema y normalmente es de
 
 ## ⛲️ Artículos
 
-* Paquetes NPM interesantes [🔗 enlace](./documents/npm-packets.md).
-* Configurar un stack de desarrollo para NodeJS + ExpressJS [🔗 enlace](./documents/config-stack.npm).
-* Gestión de varias versiones de **NodeJS** en la misma máquina [🔗 enlace](./documents/nvm-node-multiversion.md).
-* Curso de Node [🎞 video](https://www.youtube.com/watch?v=mG4U9t5nWG8&list=PLPl81lqbj-4IEnmCXEJeEXPepr8gWtsl6&index=1).
+* Curso de Node [🎬 video](https://www.youtube.com/watch?v=mG4U9t5nWG8&list=PLPl81lqbj-4IEnmCXEJeEXPepr8gWtsl6&index=1).
 * Apuntes de node [🔗 enlace](https://apuntes.de/nodejs/#gsc.tab=0).
-
+* Bootcamp Fullstack MiduDev. Vídeos 6 -15. [🎬 Lista completa de vídeos](https://www.youtube.com/playlist?list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7).
 ---
 
 * https://www.digitalocean.com/community/tags/node-js?subtype=tutorial

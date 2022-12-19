@@ -22,5 +22,13 @@ Para crear identificadores únicos
 
 npm install uuid
 
+
+
+
+Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
+
+---
+
 Aquí lo dejo
 https://www.youtube.com/watch?v=ep_plUeKV1Y&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=7
+
