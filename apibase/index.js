@@ -1,37 +1,14 @@
+require("dotenv").config(); // Acceso a las variables de entorno
+require("./mongo"); // Con esto, al hacer un require ya se conecta a la App
+
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const logger = require("./middleware/logger.js");
 
-let provincias = [
-  {
-    "id": 1,
-    "nombre": "Álava/Araba",
-    "capital": "Vitoria-Gasteiz",
-    "autonomia": "Euskadi",
-    "codine": "01",
-    "fecha": "2022-12-16T15:00:00.999Z",
-    "esuniprovincial": false,
-  },
-  {
-    "id": 2,
-    "nombre": "Albacete",
-    "capital": "Albacete",
-    "autonomia": "Castilla La Mancha",
-    "codine": "02",
-    "fecha": "2022-12-16T16:00:00.999Z",
-    "esuniprovincial": false,
-  },
-  {
-    "id": 3,
-    "nombre": "Almería",
-    "capital": "Almería",
-    "autonomia": "Andalucía",
-    "codine": "03",
-    "fecha": "2022-12-16T17:00:00.999Z",
-    "esuniprovincial": false,
-  },
-];
+// Cargamos modelos que vamos a usar
+const Provincia = require("./models/provincia");
+let provincias = [];
 
 app.use(cors());  // Usamos este middleware para que cualquier origen funcione con nuestra API
 app.use(express.json());  // Usamos este middleware para trabajar con ficheros JSON
@@ -43,19 +20,27 @@ app.get("/", (request, response) => {
 });
 
 app.get("/api/provincias", (request, response) => {
-  response.json(provincias);
+  Provincia.find({}).then((provincias) =>{
+    response.status(200).json(provincias);
+  });
 });
 
-app.get("/api/provincias/:id", (request, response) => {
-  const id = Number(request.params.id); //Ojo, los parámetros siempre son strings
-  const provincia = provincias.find(provincia => provincia.id === id);
-  if (provincia) {
-    response.json(provincia);
-  } else {
-    response.status(404).end();
-  }
-});
+app.get("/api/provincias/:id", (request, response,next) => {
+  //const id = Number(request.params.id); //Ojo, los parámetros siempre son strings
 
+  const {id} = request.params;
+
+  Provincia.findById(id).then((provincia)=>{
+    if (provincia) {
+      response.status(200).json(provincia);
+    } else {
+      response.status(404).end();
+    }
+  }).catch((err)=>{
+    next(err);
+  });
+
+});
 
 app.delete("/api/provincias/:id", (request, response) => {
   const id = Number(request.params.id);
@@ -73,21 +58,33 @@ app.post("/api/provincias", (request, response) => {
     });
   }
 
-  // Podemos usar un generador de ids, pero aquí usaremos algo rústico
-  const ids = provincias.map(provincia => provincia.id);
-  const maxId = Math.max(...ids);
-
-  const newProvincia = {
-    id: maxId + 1,
+  const newProvincia = new Provincia ({
+    provincia_id: Number(provincia.provincia_id),
     nombre: provincia.nombre,
     capital: provincia.capital,
     autonomia: provincia.autonomia,
-    codine: provincia.codine,
     fecha: new Date().toISOString(),
+    codine: provincia.codine,
     esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
-  };
-  provincias = [...provincias, newProvincia];
-  response.status(201).json(newProvincia); // La respuesta es la nueva nota
+    dirrepo: provincia.dirrepo,
+    histo: provincia.histo,
+    comautonoma_id: Number(provincia.comautonoma_id),
+    matricula: provincia.matricula,
+    cdu: provincia.cdu
+  });
+
+  newProvincia.save().then((savedProvincia)=>{
+    response.status(201).json(savedProvincia);
+  }).catch((err)=>{
+    console.log(`⚙️ Ruta no controlada ${err}`);
+    response.status(400).json({
+      error: err
+    });
+  });
+  
+
+
+  //response.status(201).json(newProvincia); // La respuesta es la nueva nota
 });
 
 // Si la ruta no la tenemos controlado, devolvemos un 404
@@ -97,6 +94,20 @@ app.use((request, response) => {
     error: "Ruta no válida"
   });
 });
+
+//  Middleware para controlar los errores.
+app.use((error,request,response,next)=>{
+  console.log(`😱 Error ${error.name}`);
+  console.error(error);
+  if (error.name==="CastError"){
+    // Se produce cuando por ejemplo pedimos un id que no tiene el tamaño adecuado, 24 caracteres hexadecimales.
+    response.status(400).send({error:"Bad Id. Mandatory 24 hexadecimal char or integer"});  
+  }else{
+    response.status(500).end();  
+  }
+  
+});
+
 
 const PORT = process.env.PORT || 3001; // Esto lo necesitan deployers como heroku.
 

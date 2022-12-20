@@ -21,4 +21,7 @@ Y para otras histortias, vercel o netlify
 https://youtu.be/ep_plUeKV1Y?t=2334
 Del minuto 27 al 37
 
+MngoDB
+
+HErramientas Robo 3T, Compass
 

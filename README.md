@@ -7,6 +7,8 @@
 * Gestión de varias versiones de **NodeJS** en la misma máquina [🔗 enlace](./documents/nvm-node-multiversion.md).
 * Configurando Node - Express - MongoDB [🔗 enlace](./documents/MEN-config.md).
 
+
+* Proyecto APIbase [🔗 README](./apibase/README.md)
 ---
 
 Javascript se crea en 1995 por **Brendan Eich** para *Netscape Navigator* como lenguaje de programación del lado del cliente. En el lado del servido siempre han dominado mlenguajes como PHP, Python o Java. Su restricción al lado cliente ha hecho que Javascript fuera considerado un lenguaje menor.
@@ -134,7 +136,7 @@ Respecto a cómo se codifican las versiones de los paquetes **NPM** en nuestro `
 * **^version** *“Compatible con la versión”*, actualizará a todas las futuras versiones *minor/patch*, sin incrementar la versión *major*. **^2.3.4** actualizará versiones desde 2.3.4 a <3.0.0. El símbolo `^` se llama *caret*.
 
 
-Hay un plugin de VSCode llamado **Version Lens** que te indica en un package.json si es o no la última.
+Hay un plugin de VSCode llamado **Version Lens** que te indica en un `package.json` si es o no la última.
 
 ### 🔵 Dependencias del desarrollo
 
@@ -176,7 +178,28 @@ Pero cuando creamos el script del `package.json`, basta con escribir el comando 
   },
 ```
 
-### 🔵 Definiendo nuestro *code style* - Linters
+### 🔹 Usando variables de entorno - Fichero .env
+
+Instalamos [dotenv](https://www.npmjs.com/package/dotenv) que es un paquete de *zero-dependency* que permite cargar variables de entorno a través de un fichero `.env`. LA instalción es
+
+```sh
+$ npm install dotenv
+```
+
+Para usarlas, desde nuestro `index.js`
+
+```js
+require('dotenv').config();
+```
+
+```
+API_PORT=3001
+MONGO_DB_URI = mongodb+srv://e2molin:s3cr3t0-2k22@cluster0.jiudpvd.mongodb.net/badasid?retryWrites=true&w=majority
+```
+
+
+
+### 🔹 Definiendo nuestro *code style* - Linters
 
 El *code linter* más extendido es EsLint. Los desarrolladores utilicen linters de código para asegurarse de que su código siga las prácticas recomendadas y mantener un estilo uniforme. Si bien esto es útil para el desarrollo, solo aumenta el tamaño del código que puede distribuirse y no proporciona un beneficio tangible cuando se implementa en producción. Por esllo lo instalamos como desarrollo.
 
@@ -208,7 +231,7 @@ npx eslint ./src/main.jsx --fix # Nos permitirá arreglar los errores automátic
 
 Las extensiones **Eslint** o **Error Lens** de **VSCode** nos ayudan a trabajar con este *linter*. Es mejor usar una **Guía popular de errores**. Yo uso 👍 la **Standard** y desaconsejo 👎 la de AirBnB. De hecho, podemos instalar el *linter* de **standard**, que se basa en **esLint**, sin tener que instalar el propio **esLint**.
 
-#### Usando el *linter* **standard**
+#### 🔹 Usando el *linter* **standard**
 
 La instalación es así:
 

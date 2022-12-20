@@ -2,8 +2,16 @@ POST http://localhost:3001/api/provincias
 content-type: application/json
 
 {
+  "provincia_id": 3,
   "nombre": "Alacant/Alicante",
-  "capital": "Alicante/Alacant",
+  "capital": "Alacant/Alicante",
   "autonomia": "Comunitat Valenciana",
-  "codine": "04"
+  "codine": "03",
+  "esuniprovincial": false,
+  "dirrepo": "ALICANTE",
+  "histo": "Alicante; Alicante/Alacant; Alacant/Alicante",
+  "comautonoma_id": 10,
+  "matricula": "A",
+  "cdu": "460.315"
 }
+
