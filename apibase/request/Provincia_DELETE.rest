@@ -1,0 +1,2 @@
+DELETE http://localhost:3001/api/provincias/63a2dd465e83c9035a784330
+

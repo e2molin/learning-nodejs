@@ -2,6 +2,7 @@
 
 Aquí lo dejo
 https://youtu.be/vhUw7GkRHdk?t=2567
+https://fullstackopen.com/es/part3/node_js_y_express
 
 
 Framework para creación de servicios.
@@ -26,12 +27,22 @@ Para crear identificadores únicos
 
 npm install uuid
 
-
-
-
 Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
 
+
+## Middleware
+
+Con `next()` vamos al siguiente `route` o `use` que hace *matchea* con el *path* que hemos puesto.
+Si ponemos `next(error)` vamos al middleware que maneje este error.
+
+Sentry es un gestor de errores. Error tracking
+https://www.youtube.com/watch?v=vhUw7GkRHdk&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=9&t=3767s
+
 ---
+
+## testing
+
+Antes se usaba mucho [Mocha](https://mochajs.org) pero ahora se lleva [Jest](https://jestjs.io)
 
 
 
@@ -54,6 +65,16 @@ Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
   };
   provincias = [...provincias, newProvincia];
 ```
+
+### Deconstrucción
+
+Esto es equivalente
+
+```js
+const id = request.params.id;
+const {id} = request.params;
+```
+
 
 
 
@@ -116,5 +137,102 @@ provincia.save()
 ```
 
 
+Con esta consulta puedeo extraer las provincias y maquetarlas para enviuarlas por POST a MongoDB
+
+```sql
+SELECT
+    json_build_object(
+        'provincia_id', prov.idprovincia,
+        'nombre', prov.nombreprovincia,
+		    'capital', prov.capitalprovincia,
+		'autonomia', com.nombre_comunidad,
+		'codine', to_char(idprovincia, 'FM09'::text),
+		'esuniprovincial', com.esuniprovincial,
+		'dirrepo', prov.dirrepo,
+		'histo', prov.histo,
+		'comautonoma_id', prov.comautonoma_id,
+		'matricula', prov.codigo,
+		'cdu', prov.cdu
+	)
+FROM bdsidschema.provincias prov inner join bdsidschema.comunidades com on prov.comautonoma_id=com.idcomunidad where prov.idprovincia=6
+```
 
 
+Por qué usamos promesas y no async await
+
+El método
+
+```js
+// Dar de alta Provincia
+app.post("/api/provincias", (request, response) => {
+  const provincia = request.body;
+
+  // Validación del nombre
+  if (!provincia || !provincia.nombre) {
+    return response.status(400).json({
+      error: "provincia.name is missing"
+    });
+  }
+
+  const newProvincia = new Provincia ({
+    provincia_id: Number(provincia.provincia_id),
+    nombre: provincia.nombre,
+    capital: provincia.capital,
+    autonomia: provincia.autonomia,
+    fecha: new Date().toISOString(),
+    codine: provincia.codine,
+    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
+    dirrepo: provincia.dirrepo,
+    histo: provincia.histo,
+    comautonoma_id: Number(provincia.comautonoma_id),
+    matricula: provincia.matricula,
+    cdu: provincia.cdu
+  });
+
+  newProvincia.save().then((savedProvincia)=>{
+    response.status(201).json(savedProvincia);
+  }).catch((err)=>{
+    console.log(`⚙️ Ruta no controlada ${err}`);
+    response.status(400).json({
+      error: err
+    });
+  });
+});
+
+```
+
+Se podría convertir en esto, pero ya no hacemos gestión de errores, luego es mejor usar el método con promnesas.
+
+```js
+// Dar de alta Provincia
+app.post("/api/provincias", await (request, response) => {
+  const provincia = request.body;
+
+  // Validación del nombre
+  if (!provincia || !provincia.nombre) {
+    return response.status(400).json({
+      error: "provincia.name is missing"
+    });
+  }
+
+  const newProvincia = new Provincia ({
+    provincia_id: Number(provincia.provincia_id),
+    nombre: provincia.nombre,
+    capital: provincia.capital,
+    autonomia: provincia.autonomia,
+    fecha: new Date().toISOString(),
+    codine: provincia.codine,
+    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
+    dirrepo: provincia.dirrepo,
+    histo: provincia.histo,
+    comautonoma_id: Number(provincia.comautonoma_id),
+    matricula: provincia.matricula,
+    cdu: provincia.cdu
+  });
+
+  const savedProvincia = await newProvincia.save()
+  response.json(savedProvincia);
+
+});
+
+```

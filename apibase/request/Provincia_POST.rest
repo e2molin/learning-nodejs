@@ -1,0 +1,4 @@
+POST http://localhost:3001/api/provincias
+content-type: application/json
+
+{"provincia_id" : 10, "nombre" : "Cáceres", "capital" : "Cáceres", "autonomia" : "Extremadura", "codine" : "10", "esuniprovincial" : false, "dirrepo" : "CACERES", "histo" : "Cáceres", "comautonoma_id" : 11, "matricula" : "CC", "cdu" : "460.251"}

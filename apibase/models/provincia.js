@@ -1,16 +1,15 @@
 const {model, Schema}= require("mongoose");
 
 const provinciaSchema = new Schema({
-  // provincia_id: {
-  //   type     : Number,
-  //   required : true,
-  //   unique   : true,
-  //   validate : {
-  //     validator : Number.isInteger,
-  //     message   : "{VALUE} is not an integer value"
-  //   }
-  // },
-  provincia_id:Number,
+  provincia_id: {
+    type     : Number,
+    required : true,
+    unique   : true,
+    validate : {
+      validator : Number.isInteger,
+      message   : "{VALUE} is not an integer value"
+    }
+  },
   nombre: String,
   capital: String,
   autonomia: String,
@@ -25,7 +24,6 @@ const provinciaSchema = new Schema({
 });
 
 //Modificamos el método toJSON del objeto provinciaSchema, porque es muy complejo y nos basta con simplificarlo
-
 provinciaSchema.set("toJSON",{
   transform: (document, returnObject) => {
     returnObject.id = returnObject._id;
