@@ -7,9 +7,16 @@ https://fullstackopen.com/es/part3/node_js_y_express
 
 Framework para creación de servicios.
 
-
+https://www.youtube.com/watch?v=1joABZS-m8w&list=RDCMUC8LeXCWOalN8SxlrPcG-PaQ&start_radio=1&rv=1joABZS-m8w&t=13
 https://www.youtube.com/watch?v=o85OkeVtm7k&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=6
+https://www.youtube.com/watch?v=5RNAg4r_f4c
 
+API PostgreSQL
+
+https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
+https://www.youtube.com/watch?v=VDgXAw7VynQ
+https://medium.com/bb-tutorials-and-thoughts/how-to-build-nodejs-rest-api-with-express-and-postgresql-674d96d5cb8f
+https://www.youtube.com/watch?v=7NfvC-gOcRc
 
 
 Códigos HTTP y gatos 😺
@@ -29,6 +36,11 @@ npm install uuid
 
 Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
 
+## MongoDb
+https://www.mongodb.com/home myemail:🛵
+
+
+
 
 ## Middleware
 
@@ -44,6 +56,60 @@ https://www.youtube.com/watch?v=vhUw7GkRHdk&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqd
 
 Antes se usaba mucho [Mocha](https://mochajs.org) pero ahora se lleva [Jest](https://jestjs.io)
 
+Cuando arrancamos los script del `package.json`, es importante definir en qué entorno de trabajo estamos, en *development* o en *production*. Por ejemplo, si estamos en *development*, pueden hacerse unos determinados tests distintos de los que hacemos si estamos en *production*. La forma de definir esto es mediante una variable de entorno:
+
+```json
+  "scripts": {
+    "dev_linux": "NODE_ENV=development nodemon index.js", /* Así se especifica en Unix */
+    "dev_windows": "set NODE_ENV=development& nodemon index.js", /* Así se especifica en Windows */
+    "start": "node index.js",
+    "test": "jest --verbose"
+  },
+```
+
+Pero hay una manera más cómoda de establecer variables de entorno y es usar la dependencia de desarrollo **cross-env**.
+
+```sh
+$ npm install cross-env -D
+```
+
+En este caso reescribimos los scripts así:
+
+```json
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=development jest --verbose"
+  },
+```
+
+Añadimos además un nuevo script, para que haga los test de los ficheros que cambian cada vez que guardamos
+
+```json
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=development jest --verbose",
+    /* Lo del guón guión -- en medio, es para que entienda que los paramétros son para el comandotest, no para el npm */
+    "test:watch": "npm run test  -- --watch",
+    /* Así pasamos exclusivamente el test de provincias */
+    "test:provincias": "cross-env NODE_ENV=test jest --verbose --silent tests/provincias.test.js"
+  },
+
+```
+
+Los test pueden ser unitarios, de una función en particular, o test de integración, que comprueban una funcionalidad completa. El paquete supertest es un paquete de desarrollo que nos permite envolver nuestra app de backend para realizar test.
+
+Para testear los endpoints de una API usamos 
+```sh
+$ npm install supertest -D
+```
+
+[Ejemplo de supertest](./src/../tests/provincias.test.js)
+
+Cuando ejecutamos los test por consola, sale mucho ruido. Vamos a programas los test para que la salida sea más limpia.
+
+> `"test": "cross-env NODE_ENV=development jest --verbose --silent"`
 
 
 ## Snippets

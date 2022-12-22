@@ -1,5 +1,6 @@
 const {average} = require("../utils/for_testing");
 
+/* Si ponemos describe.skip, se salta el test */
 describe("Average",()=>{
   test("of one value is de value itself",()=>{
     expect(average([1])).toBe(1);

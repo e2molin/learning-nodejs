@@ -4,7 +4,7 @@ require("./mongo"); // Con esto, al hacer un require ya se conecta a la App
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const logger = require("./middleware/logger.js");
+// const logger = require("./middleware/logger.js");
 const notFound = require("./middleware/notFound.js");
 const handleErrors = require("./middleware/handleErrors.js");
 
@@ -17,18 +17,33 @@ app.use(express.json());  // Usamos este middleware para trabajar con ficheros J
 // Este middleware 👇 sólo se ejecuta desde la ruta /static
 app.use("/static",express.static("images")); 
 
-app.use(logger); // Middleware de prueba para tener un config.
+// app.use(logger); // Middleware de prueba para tener un config.
 
+/**
+ * ----------------------------------------------------------------------------------------------
+ * Declaración de endpoints
+ * ----------------------------------------------------------------------------------------------
+ */
+
+//API raíz
 app.get("/", (request, response) => {
   console.log(`⚙️ Server running en puerto ${request.method}`);
   response.send("<h1>APIBASE está OK</h1>");
 });
 
-// Obtener todas las provincias
-app.get("/api/provincias", (request, response) => {
+// Obtener todas las provincias - Mediante promesas
+app.get("/api/provinciasbypromesas", (request, response) => {
   Provincia.find({}).then((provincias) =>{
     response.status(200).json(provincias);
   });
+});
+
+// Obtener todas las provincias - Mediante async-await
+// Aquí es mejor hacerlo así, proque no manejamos ningún error
+// Es una simple refactorización que no mejora el rendimiento, simplemente simplifica el código
+app.get("/api/provincias", async (request, response) => {
+  const provincias = await Provincia.find({});
+  response.status(200).json(provincias);
 });
 
 // Obtener provincia por Id
@@ -45,7 +60,7 @@ app.get("/api/provincias/:id", (request, response,next) => {
 
 });
 
-// Eliminar Provincia
+// Editar Provincia
 app.put("/api/provincias/:id", (request, response, next) => {
   // El next tiene que estar entre los parámetros para acceder al middelware
   const {id} = request.params;
@@ -83,17 +98,15 @@ app.delete("/api/provincias/:id", (request, response, next) => {
     .catch((error)=>{next(error);});
 });
 
-// Dar de alta Provincia
-app.post("/api/provincias", (request, response,next) => {
+// Dar de alta Provincia mediante promesas
+app.post("/api/provinciasbypromesas", (request, response,next) => {
   const provincia = request.body;
-
   // Validación del nombre
   if (!provincia || !provincia.nombre) {
     return response.status(400).json({
       error: "provincia.name is missing"
     });
   }
-
   const newProvincia = new Provincia ({
     provincia_id: Number(provincia.provincia_id),
     nombre: provincia.nombre,
@@ -108,14 +121,45 @@ app.post("/api/provincias", (request, response,next) => {
     matricula: provincia.matricula,
     cdu: provincia.cdu
   });
-
   newProvincia.save().then((savedProvincia)=>{
     response.status(201).json(savedProvincia);
   }).catch((error)=>{
     next(error);
   });
-
 });
+
+// Dar de alta Provincia mediante async-await
+app.post("/api/provincias", async (request, response,next) => {
+  const provincia = request.body;
+
+  // Validación del nombre
+  if (!provincia || !provincia.nombre) {
+    return response.status(400).json({
+      error: "provincia.name is missing"
+    });
+  }
+  const newProvincia = new Provincia ({
+    provincia_id: Number(provincia.provincia_id),
+    nombre: provincia.nombre,
+    capital: provincia.capital,
+    autonomia: provincia.autonomia,
+    fecha: new Date().toISOString(),
+    codine: provincia.codine,
+    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
+    dirrepo: provincia.dirrepo,
+    histo: provincia.histo,
+    comautonoma_id: Number(provincia.comautonoma_id),
+    matricula: provincia.matricula,
+    cdu: provincia.cdu
+  });
+  try {
+    const savedProvincia = await newProvincia.save();
+    response.status(201).json(savedProvincia);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 /**
  * Es muy importante el orden secuencial de los middleware
@@ -129,10 +173,13 @@ app.use(notFound);
 app.use(handleErrors);
 
 
+
 const PORT = process.env.PORT || 3001; // Esto lo necesitan deployers como heroku.
 
-app.listen(PORT, () => {
+const serverAPI = app.listen(PORT, () => {
   // Es más correcto usar esto porque el método listen es asíncrono y puede haber una pequeña latencia.
   console.log(`Server running en puerto ${PORT}`);
 });
 
+
+module.exports = { app,serverAPI };

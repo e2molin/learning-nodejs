@@ -115,6 +115,16 @@ Dentro de código de buenas maneras, cuando se suben los ficheros de un proyecto
 npm update # Lee el package.json y se baja los paquetes especificados en las dependencias.
 ```
 
+### 🔸 Instalar/desinstalar versiones
+
+Puede suceder que necesitemos desinstalar un paquete que hayamos añadido a nuestrop proyecto, simplemente porque necesitemso hacer un *downgrade*.
+
+```sh
+$ npm uninstall mongoose # Desinstalamos el paquete actual de mongoose
+$ npm install mongoose@5.11.15 # instalamos una versión del paquete en concreto
+```
+
+
 ### 🔸 Las dependencias y sus versiones. Versionamiento semántico (semver)
 
 Como vemos lo paquetes tienen su versión 👉 a.b.c donde:

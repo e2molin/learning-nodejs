@@ -8,7 +8,8 @@ const palindrome = (string) => {
     .join("");
 };
 
-const average = array =>{
+const average = array => {
+  if (array.length===0) return 0;
   let sum = 0;
   array.forEach(element => {sum+=element;});
   return sum/array.length;
