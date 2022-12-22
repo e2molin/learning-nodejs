@@ -90,13 +90,28 @@ app.put("/api/provincias/:id", (request, response, next) => {
 });
 
 // Eliminar Provincia
-app.delete("/api/provincias/:id", (request, response, next) => {
+// app.delete("/api/provincias/:id", (request, response, next) => {
+//   // El next tiene que estar entre los parámetros para acceder al middelware
+//   const {id} = request.params;
+//   Provincia.findByIdAndRemove(id)
+//     .then(() =>{response.status(204).end();})
+//     .catch((error)=>{next(error);});
+// });
+
+// Eliminar Provincia
+app.delete("/api/provincias/:id", async (request, response, next) => {
   // El next tiene que estar entre los parámetros para acceder al middelware
   const {id} = request.params;
-  Provincia.findByIdAndRemove(id)
-    .then(() =>{response.status(204).end();})
-    .catch((error)=>{next(error);});
+  try {
+    await Provincia.findByIdAndRemove(id);
+    response.status(204).end();
+  } catch (error) {
+    console.log(`😱 Error ${error.name}`);
+    console.log(error);
+    next(error);
+  }
 });
+
 
 // Dar de alta Provincia mediante promesas
 app.post("/api/provinciasbypromesas", (request, response,next) => {

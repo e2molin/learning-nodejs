@@ -67,6 +67,26 @@ test("Adding a new provincia without nombre is forbidden", async () => {
   
 });
 
+test("A province can be deleted", async () => {
+  const { response:initialResponse } = await getAllNamesFromProvincias();
+  const { body:provincias } = initialResponse;
+  const provinToDelete = provincias[0];
+  await api
+    .delete(`/api/provincias/${provinToDelete.id}`)
+    .expect(204);
+  const { provinNames, response:afterDeleteResponse } = await getAllNamesFromProvincias(); 
+  expect(afterDeleteResponse.body).toHaveLength(initialProvincias.length-1);
+  expect(provinNames).not.toContain(provinToDelete.nombre);
+});
+
+test("A province can´t be deleted", async () => {
+  await api
+    .delete("/api/provincias/1212121")
+    .expect(400);
+  const { response } = await getAllNamesFromProvincias(); 
+  expect(response.body).toHaveLength(initialProvincias.length);
+});
+
 
 // Esto es un hook que se ejecuta al terminar todos los tests. Recibe un callback que se ejecutará después de todos los test
 afterAll(() => {

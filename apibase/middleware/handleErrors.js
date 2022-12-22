@@ -5,13 +5,29 @@
  * @param {*} response 
  * @param {*} next 
  */
-module.exports = (error,request,response) => {
-  console.log(`😱 Error ${error.name}`);
-  console.error(error);
-  if (error.name==="CastError"){
-    // Se produce cuando por ejemplo pedimos un id que no tiene el tamaño adecuado, 24 caracteres hexadecimales.
-    response.status(400).send({error:"Bad Id. Mandatory 24 hexadecimal char or integer"});  
-  }else{
-    response.status(500).end();  
+const ERROR_HANDLERS = {
+  CastError: res =>
+    res.status(400).send({ error: "id used is malformed" }),
+
+  ValidationError: (res, { message }) =>
+    res.status(409).send({ error: message }),
+
+  JsonWebTokenError: (res) =>
+    res.status(401).json({ error: "token missing or invalid" }),
+
+  TokenExpirerError: res =>
+    res.status(401).json({ error: "token expired" }),
+
+  defaultError: (res, error) => {
+    console.error(error.name);
+    res.status(500).end();
   }
+};
+
+// eslint-disable-next-line no-unused-vars
+module.exports = (error, request, response, next) => {
+  console.log(`😱😱 Error ${error.name}`);
+  console.error(error);  
+  const handler = ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError;
+  handler(response, error);
 };
