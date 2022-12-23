@@ -20,7 +20,11 @@ const provinciaSchema = new Schema({
   histo: String,
   comautonoma_id: Number,
   matricula: String,
-  cdu:String
+  cdu:String,
+  user:{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 //Modificamos el método toJSON del objeto provinciaSchema, porque es muy complejo y nos basta con simplificarlo

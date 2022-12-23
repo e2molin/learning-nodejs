@@ -92,8 +92,12 @@ Añadimos además un nuevo script, para que haga los test de los ficheros que ca
     "test": "cross-env NODE_ENV=development jest --verbose",
     /* Lo del guón guión -- en medio, es para que entienda que los paramétros son para el comandotest, no para el npm */
     "test:watch": "npm run test  -- --watch",
-    /* Así pasamos exclusivamente el test de provincias */
-    "test:provincias": "cross-env NODE_ENV=test jest --verbose --silent tests/provincias.test.js"
+    /* Así limpiamos 🧹️ la caché del Jest de los sucesivos tests */
+    "test:clear": "cross-env NODE_ENV=test jest --clearCache",
+    /* Así pasamos exclusivamente el 🧪️ test de provincias */
+    "test:provincias": "cross-env NODE_ENV=test jest --verbose --silent tests/provincias.test.js",
+    /* Así pasamos exclusivamente el proceso de test por un puerto específico ⚓️ evitando colisiones */
+    "test:users": "cross-env NODE_ENV=test  PORT=1234 jest --verbose --silent tests/users.test.js"
   },
 
 ```
@@ -300,4 +304,13 @@ app.post("/api/provincias", await (request, response) => {
 
 });
 
+```
+
+
+Codificación de contraseñas con bcrypt
+
+https://github.com/kelektiv/node.bcrypt.js/
+
+```
+$ npm install bcrypt
 ```

@@ -8,7 +8,9 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --silent",
     "test:watch": "npm run test  -- --watch",
-    "test:provincias": "cross-env NODE_ENV=test jest --verbose --silent tests/provincias.test.js"
+    "test:clear": "cross-env NODE_ENV=test jest --clearCache",
+    "test:provincias": "cross-env NODE_ENV=test jest --verbose --silent tests/provincias.test.js",
+    "test:users": "cross-env NODE_ENV=test  PORT=1234 jest --verbose --silent tests/users.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +22,7 @@
     "supertest": "^6.3.3"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

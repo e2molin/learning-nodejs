@@ -7,10 +7,19 @@ const { api, initialProvincias, getAllNamesFromProvincias } = require("./helpers
 
 beforeEach(async () => {
   await Provincia.deleteMany({}); // Así borra todas las notas de la colección
-  const provincia11 = new Provincia(initialProvincias[0]);
-  await provincia11.save();
-  const provincia12 = new Provincia(initialProvincias[1]);
-  await provincia12.save();
+
+  // 👎 Esto funcionaría, pero como se hacen en paralelo no tiene por qué hacerse en el orden esperado, y eso es crítico para nuestros test
+  /*//🐞
+  const provinciasObjects = initialProvincias.map(provincia => new Provincia(provincia));
+  const promises = provinciasObjects.map(provincia => provincia.save());
+  await Promise.all(promises);
+  */
+  // 👌 Esto se hace de manera secuencial y es más correcto
+  for (const provincia of initialProvincias){
+    const provinciaObject = new Provincia(provincia);
+    await provinciaObject.save();
+  }
+
 });
 
 
@@ -25,7 +34,7 @@ test("there are provincias", async () => {
   // Esperamos que hayan dos provincias (teóricas)
   // POAra asegurarnios, a través del hook beforeEach las insertamos antes
   const response = await api.get("/api/provincias"); // Endpoint que consultamos para superar este test
-  expect(response.body).toHaveLength(2); 
+  expect(response.body).toHaveLength(initialProvincias.length); 
   // PAra es
 });
 

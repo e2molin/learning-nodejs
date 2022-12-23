@@ -11,6 +11,9 @@ const handleErrors = require("./middleware/handleErrors.js");
 // Cargamos modelos que vamos a usar
 const Provincia = require("./models/Provincia");
 
+// Cargamos los controladores de rutas que vamos a usar
+const usersRouter = require("./controllers/users");
+
 app.use(cors());  // Usamos este middleware para que cualquier origen funcione con nuestra API
 app.use(express.json());  // Usamos este middleware para trabajar con ficheros JSON
 // Desde aquí podemos servir estáticos como http://localhost:3001/static/develmap.svg 
@@ -31,8 +34,9 @@ app.get("/", (request, response) => {
   response.send("<h1>APIBASE está OK</h1>");
 });
 
+
 // Obtener todas las provincias - Mediante promesas
-app.get("/api/provinciasbypromesas", (request, response) => {
+app.get("/api/provincias/bypromesas", (request, response) => {
   Provincia.find({}).then((provincias) =>{
     response.status(200).json(provincias);
   });
@@ -181,11 +185,13 @@ app.post("/api/provincias", async (request, response,next) => {
  * Se leen de arriba a abajo
  */
 
+app.use("/api/users",usersRouter);
 
 //  Middleware para controlar el notFoundPage enviando un 404.
 app.use(notFound);
 //  Middleware para controlar los errores.
 app.use(handleErrors);
+
 
 
 
