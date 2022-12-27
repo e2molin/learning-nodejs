@@ -8,7 +8,7 @@ https://fullstackopen.com/es/part3/node_js_y_express
 Framework para creación de servicios.
 
 https://www.youtube.com/watch?v=1joABZS-m8w&list=RDCMUC8LeXCWOalN8SxlrPcG-PaQ&start_radio=1&rv=1joABZS-m8w&t=13
-https://www.youtube.com/watch?v=o85OkeVtm7k&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=6
+https://www.youtube.com/playlist?list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7
 https://www.youtube.com/watch?v=5RNAg4r_f4c
 
 API PostgreSQL
@@ -16,6 +16,7 @@ API PostgreSQL
 https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
 https://www.youtube.com/watch?v=VDgXAw7VynQ
 https://medium.com/bb-tutorials-and-thoughts/how-to-build-nodejs-rest-api-with-express-and-postgresql-674d96d5cb8f
+https://www.youtube.com/watch?v=7NfvC-gOcRc
 https://www.youtube.com/watch?v=7NfvC-gOcRc
 
 
@@ -304,6 +305,14 @@ app.post("/api/provincias", await (request, response) => {
 
 });
 
+```
+
+## Inicio de sesión de usuarios
+
+https://jwt.io/
+
+```sh
+$ npm install jsonwebtoken
 ```
 
 

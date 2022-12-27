@@ -1,0 +1,21 @@
+### Primer usuario
+POST http://localhost:3001/api/users
+Content-type: application/json
+
+{"username" : "e2molin", "name" : "Esteban", "password" : "123123"}
+
+### Segundo usuario
+POST http://localhost:3001/api/users
+Content-type: application/json
+
+{"username" : "jdoe", "name" : "John Doe", "password" : "s3cr3t0"}
+
+### Get All users
+GET http://localhost:3001/api/users
+Content-type: application/json
+
+### Login user
+POST http://localhost:3001/api/login
+Content-type: application/json
+
+{"username" : "e2molin", "password" : "123123"}

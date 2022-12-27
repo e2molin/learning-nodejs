@@ -5,7 +5,16 @@ const User = require("../models/User");
 
 
 usersRouter.get("/", async (request,response) => {
-  const users = await User.find({});
+  // Así devolvemos sólo Usuarios
+  // const users = await User.find({}) 
+  // Así devolvemos Usuarios relacionados con provincias
+  // Ojo, esto no es transaccional, como en las db relacionales. las tablas no están bloqueadas durante la consulta
+  const users = await User.find({}).populate("provincias",{
+    //Por defecto añade todas las propiedades, pero podemos limitar los campos que se devuelven
+    nombre: 1,
+    autonomia: 1,
+    provincia_id: 1,
+  }); 
   response.status(200).json(users);
 });
 

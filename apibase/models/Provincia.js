@@ -21,7 +21,7 @@ const provinciaSchema = new Schema({
   comautonoma_id: Number,
   matricula: String,
   cdu:String,
-  user:{
+  userId:{
     type: Schema.Types.ObjectId,
     ref: "User"
   }

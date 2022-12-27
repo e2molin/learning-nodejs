@@ -8,14 +8,14 @@ const app = express();
 const notFound = require("./middleware/notFound.js");
 const handleErrors = require("./middleware/handleErrors.js");
 
-// Cargamos modelos que vamos a usar
-const Provincia = require("./models/Provincia");
-
 // Cargamos los controladores de rutas que vamos a usar
 const usersRouter = require("./controllers/users");
+const provinciasRouter = require("./controllers/provincias");
+const loginRouter = require("./controllers/login");
 
 app.use(cors());  // Usamos este middleware para que cualquier origen funcione con nuestra API
 app.use(express.json());  // Usamos este middleware para trabajar con ficheros JSON
+
 // Desde aquí podemos servir estáticos como http://localhost:3001/static/develmap.svg 
 // Este middleware 👇 sólo se ejecuta desde la ruta /static
 app.use("/static",express.static("images")); 
@@ -34,166 +34,27 @@ app.get("/", (request, response) => {
   response.send("<h1>APIBASE está OK</h1>");
 });
 
-
-// Obtener todas las provincias - Mediante promesas
-app.get("/api/provincias/bypromesas", (request, response) => {
-  Provincia.find({}).then((provincias) =>{
-    response.status(200).json(provincias);
-  });
-});
-
-// Obtener todas las provincias - Mediante async-await
-// Aquí es mejor hacerlo así, proque no manejamos ningún error
-// Es una simple refactorización que no mejora el rendimiento, simplemente simplifica el código
-app.get("/api/provincias", async (request, response) => {
-  const provincias = await Provincia.find({});
-  response.status(200).json(provincias);
-});
-
-// Obtener provincia por Id
-app.get("/api/provincias/:id", (request, response,next) => {
-  //const id = Number(request.params.id); //Ojo, los parámetros siempre son strings
-
-  const {id} = request.params;
-
-  Provincia.findById(id).then((provincia)=>{
-    return provincia
-      ? response.status(200).json(provincia)
-      : response.status(404).end();
-  }).catch((err)=>{next(err);});
-
-});
-
-// Editar Provincia
-app.put("/api/provincias/:id", (request, response, next) => {
-  // El next tiene que estar entre los parámetros para acceder al middelware
-  const {id} = request.params;
-  const provincia = request.body;
-
-  const newProvinciaInfo = {
-    provincia_id: Number(provincia.provincia_id),
-    nombre: provincia.nombre,
-    capital: provincia.capital,
-    autonomia: provincia.autonomia,
-    fecha: new Date().toISOString(),
-    codine: provincia.codine,
-    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
-    dirrepo: provincia.dirrepo,
-    histo: provincia.histo,
-    comautonoma_id: Number(provincia.comautonoma_id),
-    matricula: provincia.matricula,
-    cdu: provincia.cdu
-  };
-
-  Provincia.findByIdAndUpdate(id,newProvinciaInfo,{new:true}).then((result) =>{
-    response.status(200).json(result);
-  }).catch((error)=>{
-    next(error);
-  });
-
-});
-
-// Eliminar Provincia
-// app.delete("/api/provincias/:id", (request, response, next) => {
-//   // El next tiene que estar entre los parámetros para acceder al middelware
-//   const {id} = request.params;
-//   Provincia.findByIdAndRemove(id)
-//     .then(() =>{response.status(204).end();})
-//     .catch((error)=>{next(error);});
-// });
-
-// Eliminar Provincia
-app.delete("/api/provincias/:id", async (request, response, next) => {
-  // El next tiene que estar entre los parámetros para acceder al middelware
-  const {id} = request.params;
-  try {
-    await Provincia.findByIdAndRemove(id);
-    response.status(204).end();
-  } catch (error) {
-    console.log(`😱 Error ${error.name}`);
-    console.log(error);
-    next(error);
-  }
-});
-
-
-// Dar de alta Provincia mediante promesas
-app.post("/api/provinciasbypromesas", (request, response,next) => {
-  const provincia = request.body;
-  // Validación del nombre
-  if (!provincia || !provincia.nombre) {
-    return response.status(400).json({
-      error: "provincia.name is missing"
-    });
-  }
-  const newProvincia = new Provincia ({
-    provincia_id: Number(provincia.provincia_id),
-    nombre: provincia.nombre,
-    capital: provincia.capital,
-    autonomia: provincia.autonomia,
-    fecha: new Date().toISOString(),
-    codine: provincia.codine,
-    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
-    dirrepo: provincia.dirrepo,
-    histo: provincia.histo,
-    comautonoma_id: Number(provincia.comautonoma_id),
-    matricula: provincia.matricula,
-    cdu: provincia.cdu
-  });
-  newProvincia.save().then((savedProvincia)=>{
-    response.status(201).json(savedProvincia);
-  }).catch((error)=>{
-    next(error);
-  });
-});
-
-// Dar de alta Provincia mediante async-await
-app.post("/api/provincias", async (request, response,next) => {
-  const provincia = request.body;
-
-  // Validación del nombre
-  if (!provincia || !provincia.nombre) {
-    return response.status(400).json({
-      error: "provincia.name is missing"
-    });
-  }
-  const newProvincia = new Provincia ({
-    provincia_id: Number(provincia.provincia_id),
-    nombre: provincia.nombre,
-    capital: provincia.capital,
-    autonomia: provincia.autonomia,
-    fecha: new Date().toISOString(),
-    codine: provincia.codine,
-    esuniprovincial: typeof provincia.esuniprovincial !== "undefined" ? provincia.esuniprovincial : false,
-    dirrepo: provincia.dirrepo,
-    histo: provincia.histo,
-    comautonoma_id: Number(provincia.comautonoma_id),
-    matricula: provincia.matricula,
-    cdu: provincia.cdu
-  });
-  try {
-    const savedProvincia = await newProvincia.save();
-    response.status(201).json(savedProvincia);
-  } catch (error) {
-    next(error);
-  }
-});
-
-
+// Endpoints mediante Routers
 /**
  * Es muy importante el orden secuencial de los middleware
  * Se leen de arriba a abajo
  */
 
+// EndPoints de provincias
+app.use("/api/provincias",provinciasRouter);
+
+// EndPoints de usuarios
 app.use("/api/users",usersRouter);
+
+// Endpoint de Login
+app.use("/api/login", loginRouter);
+
+
 
 //  Middleware para controlar el notFoundPage enviando un 404.
 app.use(notFound);
 //  Middleware para controlar los errores.
 app.use(handleErrors);
-
-
-
 
 const PORT = process.env.PORT || 3001; // Esto lo necesitan deployers como heroku.
 

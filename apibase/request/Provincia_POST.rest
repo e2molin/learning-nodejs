@@ -1,4 +1,6 @@
 POST http://localhost:3001/api/provincias
-content-type: application/json
+Content-type: application/json
 
-{"provincia_id" : 10, "nombre" : "Cáceres", "capital" : "Cáceres", "autonomia" : "Extremadura", "codine" : "10", "esuniprovincial" : false, "dirrepo" : "CACERES", "histo" : "Cáceres", "comautonoma_id" : 11, "matricula" : "CC", "cdu" : "460.251"}
+{"provincia_id" : 5, "nombre" : "Ávila", "capital" : "Ávila", "autonomia" : "Castilla y León", "codine" : "05", "esuniprovincial" : false, "dirrepo" : "AVILA", "histo" : "Ávila", "comautonoma_id" : 7, "matricula" : "VI", "cdu" : "460.189",
+"userId": "63aac9d01d9fb3d7666e5c1d"
+}

@@ -23,10 +23,11 @@ mongoose.connect(connectionString,{
 });
 
 /** 
- * Ahora ada vez que pete se cierra la conexión
+ * Ahora cada vez que pete se cierra la conexión
  */
 process.on("uncaughtException", ()=>{
   console.info("👋 Database disconnect");
-  mongoose.connection.close();
+  //mongoose.connection.close();
+  mongoose.disconnect();
 });
 
