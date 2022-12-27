@@ -1,6 +1,5 @@
 POST http://localhost:3001/api/provincias
 Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFjOTgxMWQ5ZmIzZDc2NjZlNWMxYiIsInVzZXJuYW1lIjoiZTJtb2xpbiIsImlhdCI6MTY3MjE0NDU2NX0.usmMmI1ZY_gn0lMiyjsmTnXbvTnvVck2KGIeNd--oPo
 
-{"provincia_id" : 5, "nombre" : "Ávila", "capital" : "Ávila", "autonomia" : "Castilla y León", "codine" : "05", "esuniprovincial" : false, "dirrepo" : "AVILA", "histo" : "Ávila", "comautonoma_id" : 7, "matricula" : "VI", "cdu" : "460.189",
-"userId": "63aac9d01d9fb3d7666e5c1d"
-}
+{"provincia_id" : 14, "nombre" : "Córdoba", "capital" : "Córdoba", "autonomia" : "Andalucía", "codine" : "14", "esuniprovincial" : false, "dirrepo" : "CORDOBA", "histo" : "Córdoba", "comautonoma_id" : 1, "matricula" : "CO", "cdu" : "460.351"}

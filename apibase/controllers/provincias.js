@@ -1,7 +1,7 @@
 const provinciasRouter = require("express").Router();
 const Provincia = require("../models/Provincia");
 const User = require("../models/User");
-
+const userExtractor = require("../middleware/userExtractor");
 
 // Obtener todas las provincias - Mediante async-await
 // Aquí es mejor hacerlo así, proque no manejamos ningún error
@@ -36,7 +36,7 @@ provinciasRouter.get("/:id", (request, response,next) => {
 });
 
 // Editar Provincia
-provinciasRouter.put("/:id", (request, response, next) => {
+provinciasRouter.put("/:id",userExtractor, (request, response, next) => {
   // El next tiene que estar entre los parámetros para acceder al middelware
   const {id} = request.params;
   const provincia = request.body;
@@ -65,16 +65,7 @@ provinciasRouter.put("/:id", (request, response, next) => {
 });
 
 // Eliminar Provincia
-// app.delete("/api/provincias/:id", (request, response, next) => {
-//   // El next tiene que estar entre los parámetros para acceder al middelware
-//   const {id} = request.params;
-//   Provincia.findByIdAndRemove(id)
-//     .then(() =>{response.status(204).end();})
-//     .catch((error)=>{next(error);});
-// });
-
-// Eliminar Provincia
-provinciasRouter.delete("/:id", async (request, response, next) => {
+provinciasRouter.delete("/:id",userExtractor, async (request, response, next) => {
   // El next tiene que estar entre los parámetros para acceder al middelware
   const {id} = request.params;
   try {
@@ -88,8 +79,9 @@ provinciasRouter.delete("/:id", async (request, response, next) => {
 });
 
 // Dar de alta Provincia mediante promesas - Ejemplo educativo 🎓
-provinciasRouter.post("/postbypromesas", (request, response,next) => {
+provinciasRouter.post("/postbypromesas",userExtractor, (request, response,next) => {
   const provincia = request.body;
+
   // Validación del nombre
   if (!provincia || !provincia.nombre) {
     return response.status(400).json({
@@ -119,15 +111,15 @@ provinciasRouter.post("/postbypromesas", (request, response,next) => {
 
 
 // Dar de alta Provincia mediante async-await
-provinciasRouter.post("/", async (request, response,next) => {
+provinciasRouter.post("/",userExtractor, async (request, response,next) => {
+  // Primero se ejecuta el 👆 middleware userExtractor y después sigue el flujo 👇
   const provincia = request.body;
+  // Como antes de esto se ejecuta el middleware userExtractor, si llega hasta aquí significa que 
+  // ha habido validación correcta y esta propiedad está rellena
+  const { userId } = request; 
 
-  console.log(`🚦 UserId: ${provincia.userId}`);
-
-  const userCreatingProvincia = await User.findById(provincia.userId);
+  const userCreatingProvincia = await User.findById(userId);
   
-  console.log(userCreatingProvincia);
-
   // Validación del nombre
   if (!provincia || !provincia.nombre) {
     return response.status(400).json({

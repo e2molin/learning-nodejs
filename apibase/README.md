@@ -315,6 +315,13 @@ https://jwt.io/
 $ npm install jsonwebtoken
 ```
 
+https://developer.mozilla.org/es/docs/Web/HTTP/Authentication#esquemas_de_autenticaci%C3%B3n
+
+
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFjOTgxMWQ5ZmIzZDc2NjZlNWMxYiIsInVzZXJuYW1lIjoiZTJtb2xpbiIsImlhdCI6MTY3MjE0NDU2NX0.usmMmI1ZY_gn0lMiyjsmTnXbvTnvVck2KGIeNd--oPo"
+
+
+
 
 Codificación de contraseñas con bcrypt
 
