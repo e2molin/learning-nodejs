@@ -1,0 +1,23 @@
+# Pruebas al EndPoint de Provincias
+
+### Obtener todas las provincias en Local
+GET http://localhost:3001/api/provincias
+
+###  Obtener una provincia en Local
+GET http://localhost:3001/api/provincias/63a1ae17d2c4448200e4d2be
+
+### Postear una nueva provincia con autorización
+POST http://localhost:3001/api/provincias
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFjOTgxMWQ5ZmIzZDc2NjZlNWMxYiIsInVzZXJuYW1lIjoiZTJtb2xpbiIsImlhdCI6MTY3MjE0NDU2NX0.usmMmI1ZY_gn0lMiyjsmTnXbvTnvVck2KGIeNd--oPo
+
+{"provincia_id" : 14, "nombre" : "Córdoba", "capital" : "Córdoba", "autonomia" : "Andalucía", "codine" : "14", "esuniprovincial" : false, "dirrepo" : "CORDOBA", "histo" : "Córdoba", "comautonoma_id" : 1, "matricula" : "CO", "cdu" : "460.351"}
+
+### Borrar una provincia
+DELETE http://localhost:3001/api/provincias/63a2dd465e83c9035a784330
+
+### Editar una provincia
+PUT http://localhost:3001/api/provincias/63a2de3136db87b2303ff8e9
+Content-type: application/json
+
+{"provincia_id" : 10, "nombre" : "Cáceres", "capital" : "Cáceres", "autonomia" : "Extremadura", "codine" : "10", "esuniprovincial" : false, "dirrepo" : "CACERES", "histo" : "Cáceres", "comautonoma_id" : 11, "matricula" : "CC", "cdu" : "460.251"}

@@ -1,5 +1,0 @@
-POST http://localhost:3001/api/provincias
-Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFjOTgxMWQ5ZmIzZDc2NjZlNWMxYiIsInVzZXJuYW1lIjoiZTJtb2xpbiIsImlhdCI6MTY3MjE0NDU2NX0.usmMmI1ZY_gn0lMiyjsmTnXbvTnvVck2KGIeNd--oPo
-
-{"provincia_id" : 14, "nombre" : "Córdoba", "capital" : "Córdoba", "autonomia" : "Andalucía", "codine" : "14", "esuniprovincial" : false, "dirrepo" : "CORDOBA", "histo" : "Córdoba", "comautonoma_id" : 1, "matricula" : "CO", "cdu" : "460.351"}

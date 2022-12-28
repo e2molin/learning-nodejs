@@ -1,47 +1,19 @@
-## Express
+# APIBASE
 
-Aquí lo dejo
-https://youtu.be/_xxVJdGNMrs?t=2796
-https://fullstackopen.com/es/part3/node_js_y_express
+API en NodeJS con **Express** y **Mongoose** para acceder a MongoDB.
+Hospedada en Render [https://dvm-apibase.onrender.com/](https://dvm-apibase.onrender.com/).
+Middlewares, JWT, encriptación de contraseñas.
 
+---
 
-Framework para creación de servicios.
+* Node.js y Express en [🔗 Full Stack open 2022](https://fullstackopen.com/es/part3/node_js_y_express).
+* Curso MiduDev de [🔗 Bootcamp Fullstack](https://www.youtube.com/playlist?list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7)
 
-https://www.youtube.com/watch?v=1joABZS-m8w&list=RDCMUC8LeXCWOalN8SxlrPcG-PaQ&start_radio=1&rv=1joABZS-m8w&t=13
-https://www.youtube.com/playlist?list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7
-https://www.youtube.com/watch?v=5RNAg4r_f4c
+---
 
-API PostgreSQL
+## Express y Mongoose para acceder a Mongo DB
 
-https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
-https://www.youtube.com/watch?v=VDgXAw7VynQ
-https://medium.com/bb-tutorials-and-thoughts/how-to-build-nodejs-rest-api-with-express-and-postgresql-674d96d5cb8f
-https://www.youtube.com/watch?v=7NfvC-gOcRc
-https://www.youtube.com/watch?v=7NfvC-gOcRc
-
-
-Códigos HTTP y gatos 😺
-https://http.cat/
-
-Clientes API Rest
-
-PostMan
-https://insomnia.rest/
-RapidAPI
-Rest Client
-
-
-Para crear identificadores únicos
-
-npm install uuid
-
-Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
-
-## MongoDb
-https://www.mongodb.com/home myemail:🛵
-
-
-
+https://youtu.be/vhUw7GkRHdk
 
 ## Middleware
 
@@ -53,7 +25,7 @@ https://www.youtube.com/watch?v=vhUw7GkRHdk&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqd
 
 ---
 
-## testing
+## Testing
 
 Antes se usaba mucho [Mocha](https://mochajs.org) pero ahora se lleva [Jest](https://jestjs.io)
 
@@ -116,7 +88,7 @@ Cuando ejecutamos los test por consola, sale mucho ruido. Vamos a programas los 
 
 > `"test": "cross-env NODE_ENV=development jest --verbose --silent"`
 
-## Snippets
+## 🧩️ Snippets
 
 
 ```js
@@ -146,10 +118,17 @@ const {id} = request.params;
 ```
 
 
+## MongoDB y Mongoose
 
+Acceso a Atlas **MongoDb** con: https://www.mongodb.com/home myemail:🛵
 
+Para crear identificadores únicos
 
-## MongoDB
+```sh
+$ npm install uuid
+```
+
+Github Actions podría pasr por un Jenkins en cuanto a funcionalidad.
 
 Mongoose es una librería para Node. js que nos permite escribir consultas para una base de datos de MongooDB, con características como validaciones, construcción de queries, middlewares, conversión de tipos y algunas otras, que enriquecen la funcionalidad de la base de datos. Instalamos [mongoose](https://mongoosejs.com/)
 
@@ -207,7 +186,7 @@ provincia.save()
 ```
 
 
-Con esta consulta puedeo extraer las provincias y maquetarlas para enviuarlas por POST a MongoDB
+Con esta consulta puedeo extraer las provincias y maquetarlas para enviuarlas por POST a MongoDB.
 
 ```sql
 SELECT
@@ -226,7 +205,6 @@ SELECT
 	)
 FROM bdsidschema.provincias prov inner join bdsidschema.comunidades com on prov.comautonoma_id=com.idcomunidad where prov.idprovincia=6
 ```
-
 
 Por qué usamos promesas y no async await
 
@@ -271,7 +249,7 @@ app.post("/api/provincias", (request, response) => {
 
 ```
 
-Se podría convertir en esto, pero ya no hacemos gestión de errores, luego es mejor usar el método con promnesas.
+Se podría convertir en esto, pero ya no hacemos gestión de errores, luego es mejor usar el método con promesas.
 
 ```js
 // Dar de alta Provincia
@@ -304,29 +282,55 @@ app.post("/api/provincias", await (request, response) => {
   response.json(savedProvincia);
 
 });
-
 ```
 
-## Inicio de sesión de usuarios
+## 🔐 Inicio de sesión de usuarios con JSON Web Tokens
 
-https://jwt.io/
+[🎬 Video](https://youtu.be/btW1SefZf9M)
+
+Hay varias librerías, nosotros usamos **JWT** [🔗 Enlace](https://jwt.io/)
 
 ```sh
 $ npm install jsonwebtoken
 ```
 
-https://developer.mozilla.org/es/docs/Web/HTTP/Authentication#esquemas_de_autenticaci%C3%B3n
+Teoría sobre los patrones de autenticación. Usaremos Bearer [🔗 Enlace](https://developer.mozilla.org/es/docs/Web/HTTP/Authentication#esquemas_de_autenticaci%C3%B3n)
 
+## 🛂 Encriptación de contraseñas
 
-"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFjOTgxMWQ5ZmIzZDc2NjZlNWMxYiIsInVzZXJuYW1lIjoiZTJtb2xpbiIsImlhdCI6MTY3MjE0NDU2NX0.usmMmI1ZY_gn0lMiyjsmTnXbvTnvVck2KGIeNd--oPo"
+[🎬 Video](https://youtu.be/bARan2RAt5w)
 
+Codificación de contraseñas con la librería **bcrypt** [🔗 Enlace](https://github.com/kelektiv/node.bcrypt.js/)
 
-
-
-Codificación de contraseñas con bcrypt
-
-https://github.com/kelektiv/node.bcrypt.js/
-
-```
+```sh
 $ npm install bcrypt
 ```
+
+## 🚀 Deploy 
+
+Para desplegar nuestra API tenemos varias soluciones. **Heroku** es una plataforma como servicio (PaaS) de computación en la Nube que soporta distintos lenguajes de programación. Hasta hace unos años, Heroku era la opción más utilizada, pero la falta de nuevas funcionalidades, el tiempo de levantar las instacias y cómo las congela de repente, así como varios problemas de seguridad, les ha hecho perder muchos enteros. A fecha de diciembre de 2022, las mejores opciones actualmente para hospedar un servicio API son:
+
+### 🔹 Render
+
+Para  desplegar una API con Node utilizando Express, [Render](https://render.com/docs/deploy-node-express-app). 
+
+* Creamos un repositorio con nuestro desarrollo.
+* Desde **Render** nos conectamos parametrizando el repositorio de Github y la rama que queremos desplegar.
+* Definimos el nombre con el que se va a distribuir nuestro servicio `dvm-apibase`.
+* **Root Directory** en nuestro caso `apibase`, ya que cuelga del repo `learning-nodejs`.
+* **Build command** es `npm install`.
+* **Start Command** es `node index.js`.
+
+Luego tenemos que definir nuestras variables de entorno, con las configuraciones de acceso a la base de datos. Para ello usamos la opción de **Secret Files**, en donde creamos un fichero `.env` con el contenido de nuestro fichero local.
+
+Una vez terminado, veremos cómo se arranca nuestro servicio. Disponible en [https://dvm-apibase.onrender.com/](https://dvm-apibase.onrender.com/).
+
+### 🔹 Railway
+
+
+
+
+## ⛲️ Recursos
+
+* Códigos HTTP y gatos 😺 [https://http.cat/](https://http.cat/)
+

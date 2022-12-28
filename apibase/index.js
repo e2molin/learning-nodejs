@@ -31,7 +31,7 @@ app.use("/static",express.static("images"));
 //API raíz
 app.get("/", (request, response) => {
   console.log(`⚙️ Server running en puerto ${request.method}`);
-  response.send("<h1>APIBASE está OK</h1>");
+  response.send("<h1>APIBASE está 👍</h1>");
 });
 
 // Endpoints mediante Routers

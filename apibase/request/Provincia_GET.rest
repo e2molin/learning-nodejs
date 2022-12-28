@@ -1,5 +1,0 @@
-GET http://localhost:3001/api/provincias
-
-###
-
-GET http://localhost:3001/api/provincias/63a1ae17d2c4448200e4d2be

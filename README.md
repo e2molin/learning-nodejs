@@ -203,11 +203,9 @@ require('dotenv').config();
 ```
 
 ```
-API_PORT=3001
-MONGO_DB_URI = mongodb+srv://e2molin:s3cr3t0-2k22@cluster0.jiudpvd.mongodb.net/badasid?retryWrites=true&w=majority
+API_PORT = 3001
+MONGO_DB_URI = mongodb+srv://[usuario]:[password]@cluster0.jiudpvd.mongodb.net/[badasid]?retryWrites=true&w=majority
 ```
-
-
 
 ### 🔹 Definiendo nuestro *code style* - Linters
 
@@ -281,9 +279,25 @@ Error de permisos. Es bastante frecuente tener este problema y normalmente es de
 * Curso de Node [🎬 video](https://www.youtube.com/watch?v=mG4U9t5nWG8&list=PLPl81lqbj-4IEnmCXEJeEXPepr8gWtsl6&index=1).
 * Apuntes de node [🔗 enlace](https://apuntes.de/nodejs/#gsc.tab=0).
 * Bootcamp Fullstack MiduDev. Vídeos 6 -15. [🎬 Lista completa de vídeos](https://www.youtube.com/playlist?list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7).
----
 
+## 🧰️ Recursos interesantes
+
+### Clientes de API REST
+
+* **PostMan** - Necesita instalador. [🔗 Enlace](https://www.postman.com/)
+* **Insomnia** - Necesita instalador. Recomendada por [🐙 rruiztorres](https://github.com/rruiztorres) [🔗 Enlace](https://insomnia.rest/)
+* **RapidAPI** - Extensión de VSCode.
+* **Thunder Client** - Extensión de VSCode.
+* **Rest Client** - Extensión de VSCode. PAra mí la más sencilla, con ficheros `.rest`.
+
+
+## ⏰ Pending desarrollo
+
+### API PostgreSQL
+
+* 🔗 https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
+* 🔗 https://www.youtube.com/watch?v=VDgXAw7VynQ
+* 🔗 https://medium.com/bb-tutorials-and-thoughts/how-to-build-nodejs-rest-api-with-express-and-postgresql-674d96d5cb8f
+* 🔗 https://www.youtube.com/watch?v=7NfvC-gOcRc
 * https://www.digitalocean.com/community/tags/node-js?subtype=tutorial
-* Faltan por revisar
 * https://www.toptal.com/javascript/a-guide-to-npm-the-node-package-manager
-

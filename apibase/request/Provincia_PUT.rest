@@ -1,4 +1,0 @@
-PUT http://localhost:3001/api/provincias/63a2de3136db87b2303ff8e9
-content-type: application/json
-
-{"provincia_id" : 10, "nombre" : "Cáceres", "capital" : "Cáceres", "autonomia" : "Extremadura", "codine" : "10", "esuniprovincial" : false, "dirrepo" : "CACERES", "histo" : "Cáceres", "comautonoma_id" : 11, "matricula" : "CC", "cdu" : "460.251"}

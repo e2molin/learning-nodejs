@@ -18,7 +18,7 @@ module.exports = (request, response,next) =>{
   
   if (!token || !decodedToken.id){
     return response.status(401).json({
-      error: "token missing or invalid"
+      error: "🔔 token missing or invalid"
     });
   }
 
