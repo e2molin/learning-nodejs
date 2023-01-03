@@ -1,0 +1,30 @@
+# Pruebas al EndPoint de Gasolineras
+
+### Get All Gasolineras
+GET http://localhost:3001/gasolineras
+Content-type: application/json
+
+### Get One Gasolinera usando promesas
+GET http://localhost:3001/gasolineras/bypromesas/11719
+Content-type: application/json
+
+### Get One Gasolinera usando Async/Await
+GET http://localhost:3001/gasolineras/byasync/11725
+Content-type: application/json
+
+### Crear Gasolinera
+POST http://localhost:3001/gasolineras
+Content-type: application/json
+
+{
+  "ideess" : 12001,
+  "rotulo" : "CEPSA", 
+  "horario" : "7 días - 24 Horas", 
+  "municipio" : "Boadilla",
+  "provincia" : "Madrid",
+  "lon": -3.56565
+}
+
+
+### Borrar una gasolinera
+DELETE http://localhost:3001/gasolineras/11730
