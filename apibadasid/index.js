@@ -5,10 +5,10 @@ const cors = require("cors");
 const app = express();
 
 // Cargamos los controladores de rutas que vamos a usar
-const gasolinerasRouter = require("./controllers/gasolineras");
+const gasolinerasRouter = require("./routes/gasolineras.routes");
 
 
-// Importamos middlewares
+// Importamos algunos middlewares de control de errores y control de rutas no existentes
 const notFound = require("./middleware/notFound.js");
 const handleErrors = require("./middleware/handleErrors.js");
 
@@ -24,25 +24,26 @@ app.use("/static",express.static("images"));
 //API raíz
 app.get("/", (request, response) => {
   console.log(`⚙️ Server running en puerto ${request.method}`);
-  response.send("<h1>APIBASE está 👍</h1>");
+  response.send("<h1>APIBADASID está 🚀</h1>");
 });
 
 // EndPoints de provincias
 app.use("/gasolineras",gasolinerasRouter);
-
 
 //  Middleware para controlar el notFoundPage enviando un 404.
 app.use(notFound);
 //  Middleware para controlar los errores.
 app.use(handleErrors);
 
+/**
+ * Lanzamos nuestro servicio
+ */
 
-
-const PORT = process.env.PORT || 3001; // Esto lo necesitan deployers como heroku.
+const PORT = process.env.PORT || process.env.API_DEFAULT_PORT; // Esto lo necesitan deployers como heroku.
 
 const serverAPI = app.listen(PORT, () => {
   // Es más correcto usar esto porque el método listen es asíncrono y puede haber una pequeña latencia.
-  console.log(`Server running en puerto ${PORT}`);
+  console.log(`🍱 Server running en puerto 🔌 ${PORT}`);
 });
 
 module.exports = { app,serverAPI };

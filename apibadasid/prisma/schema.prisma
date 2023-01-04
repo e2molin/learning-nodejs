@@ -10,22 +10,16 @@ datasource db {
 }
 
 model gasolineras {
-  id                     Int     @id @default(autoincrement())
-  ideess                 Int?
-  rotulo                 String? @db.VarChar
-  horario                String? @db.VarChar
-  municipio              String? @db.VarChar
-  provincia              String? @db.VarChar
-  lat                    Float?
-  lon                    Float?
-  gasoleo_a              Float?
-  gasoleo_b              Float?
-  gasoleo_premium        Float?
-  gasolina_95_e10        Float?
-  gasolina_95_e5         Float?
-  gasolina_95_e5_premium Float?
-  gasolina_98_e10        Float?
-  gasolina_98_e5         Float?
+  id             Int     @id @default(autoincrement())
+  ideess         Int?
+  rotulo         String? @db.VarChar
+  horario        String? @db.VarChar
+  municipio      String? @db.VarChar
+  provincia      String? @db.VarChar
+  lat            Float?
+  lon            Float?
+  gasoleo_a      Float?
+  gasolina_95_e5 Float?
 
   @@schema("cartografia")
 }

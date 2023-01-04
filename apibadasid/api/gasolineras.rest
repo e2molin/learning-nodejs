@@ -9,7 +9,7 @@ GET http://localhost:3001/gasolineras/bypromesas/11719
 Content-type: application/json
 
 ### Get One Gasolinera usando Async/Await
-GET http://localhost:3001/gasolineras/byasync/11725
+GET http://localhost:3001/gasolineras/11725
 Content-type: application/json
 
 ### Crear Gasolinera
@@ -17,13 +17,35 @@ POST http://localhost:3001/gasolineras
 Content-type: application/json
 
 {
-  "ideess" : 12001,
-  "rotulo" : "CEPSA", 
-  "horario" : "7 días - 24 Horas", 
-  "municipio" : "Boadilla",
+  "ideess" : 12002,
+  "rotulo" : "BP", 
+  "horario" : "5 días - 12 Horas", 
+  "municipio" : "Aravaca",
   "provincia" : "Madrid",
-  "lon": -3.56565
+  "lon": -3.8,
+  "lat": 42.560
 }
+
+### Actualizar precios Gasolinera
+PUT http://localhost:3001/gasolineras/actualizaprecios/11733
+Content-type: application/json
+
+{
+    "gasoleo_a": 2,    
+    "gasolina_95_e5": 3
+}
+
+### Actualizar propiedades Gasolinera
+PUT http://localhost:3001/gasolineras/actualizaprops/11733
+Content-type: application/json
+
+{
+    "rotulo": "CEPSA",
+    "horario": "Nocturno",
+    "municipio": "La Granja",
+    "provincia": "Segovia"
+}
+
 
 
 ### Borrar una gasolinera
