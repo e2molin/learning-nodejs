@@ -294,6 +294,10 @@ Error de permisos. Es bastante frecuente tener este problema y normalmente es de
 
 ## ⏰ Pending desarrollo
 
+REQUIRE vs IMPORT ⚡ COMMON JS vs ES MODULES 🤔 CJS vs ESM 🟢 Curso de Node.JS desde cero #3
+CommonJS (CJS) y por otro ECMAScript Modules (ESM).
+https://www.youtube.com/watch?v=29iYdru2KUg
+
 ### API PostgreSQL
 
 * 🔗 https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/

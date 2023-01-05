@@ -4,6 +4,7 @@
  * @param {*} response 
  * @param {*} next 
  */
+
 module.exports = (request, response) =>{
   console.log(`⚙️ Ruta no controlada ${request.path}`);
   response.status(404).end();

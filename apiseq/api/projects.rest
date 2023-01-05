@@ -1,0 +1,5 @@
+# Pruebas al EndPoint de Proyects
+
+### Get All Gasolineras
+GET http://localhost:3001/projects
+Content-type: application/json
