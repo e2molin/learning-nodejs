@@ -1,5 +1,68 @@
 # Pruebas al EndPoint de Proyects
 
-### Get All Gasolineras
+### Get All Projects
 GET http://localhost:3001/projects
 Content-type: application/json
+
+### Get All Projects and tasks nested
+GET http://localhost:3001/projects/andtasks
+Content-type: application/json
+
+### Get One Project
+GET http://localhost:3001/projects/7c24cdaa-7e0c-41c9-a2c1-d074f118e0dd
+Content-type: application/json
+
+
+### Create a Project
+POST http://localhost:3001/projects
+Content-type: application/json
+
+{
+  "name": "Project 10",
+  "priority": 5,
+  "budget": 0,
+  "description": "Lorem ipsum project 2"
+}
+
+### Create a bulk of Projects
+POST http://localhost:3001/projects/createManyProjects
+Content-type: application/json
+
+[
+  {
+    "name": "Project 3",
+    "priority": 3,
+    "budget": 1500.24,
+    "description": "Lorem ipsum project 3"
+  },
+  {
+    "name": "Project 4",
+    "priority": 4,
+    "budget": 200.24,
+    "description": "Lorem ipsum project 4"
+  },
+  {
+    "name": "Project 5",
+    "priority": 5,
+    "budget": 9100.24,
+    "description": "Lorem ipsum project 5"
+  }
+]
+
+### Actualizar atributos de un proyecto
+PUT http://localhost:3001/projects/f4d38514-3000-4880-80b4-fd420ddda7fc
+Content-type: application/json
+
+{
+"budget": 5000.55
+}
+
+### Borrar un proyecto c3cd29d9-d8e5-47ee-86d6-236e26d7c9e5
+DELETE http://localhost:3001/projects/c3cd29d9-d8e5-47ee-86d6-236e26d7c9e5
+
+### Obtener tareas de un proyecto
+GET http://localhost:3001/projects/7c24cdaa-7e0c-41c9-a2c1-d074f118e0dd/tasks
+f4d38514-3000-4880-80b4-fd420ddda7fc
+
+### Obtener tareas de un proyecto
+GET http://localhost:3001/projects/83d962a4-8348-4e2f-8d7a-dccff5d22feb/tasks

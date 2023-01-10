@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import projectsRouter from './routes/projects.routes.js';
+import { errorHandler } from './middleware/handleErrors.js';
+import tasksRouter from './routes/tasks.routes.js';
 
 const app = express();
 
-app.use(cors());  // Usamos este middleware para que cualquier origen funcione con nuestra API
+app.use(cors());          // Usamos este middleware para que cualquier origen funcione con nuestra API
 app.use(express.json());  // Usamos este middleware para trabajar con ficheros JSON
 
 
@@ -18,5 +20,8 @@ app.get("/", (request, response) => {
 
 // EndPoints de proyects
 app.use("/projects", projectsRouter);
+app.use("/tasks", tasksRouter);
+
+app.use(errorHandler);
 
 export default app;

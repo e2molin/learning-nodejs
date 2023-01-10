@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "npx nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sequelize:syncro:force": "node ./src/database/sequel_sync.js"
+    "sequelize:syncro:force": "node ./src/database/sequel_sync_force.js",
+    "sequelize:syncro:alter": "node ./src/database/sequel_sync_alter.js"
   },
   "keywords": [],
   "author": "",

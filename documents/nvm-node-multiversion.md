@@ -71,9 +71,28 @@ nvm install 10.12.1 --reinstall-packages-from=8.17.1
 
 Y de esta manera, además de instalar la nueva versión, nos dejará instalados lo paquetes globales que teníamos instalados con la antigua.
 
+## Introduciendo Volta
+
+[Volta](https://volta.sh/) se define como “una forma sencilla de administrar las distintas herramientas de linea de comandos para el desarrollo de proyectos en JavaScript”
+
+En la práctica, significa que Volta te da la posibilidad de administrar tanto versiones de Node, como las versiones de distintos package managers (NPM o Yarn), ya sea de forma global o local a los proyectos.
+
+Además, estas versiones se quedan pinedadas en el package.json para que Volta realice el switch entre proyectos sin que tengas que decirle nada por línea de comandos. Es transparente, no requiere nada por nuestra parte.
+
+Las diferencias más notorias respecto a NVM saltan a la vista:
+
+* NVM solo administra versiones de Node. Volta, además, administra versiones de los package managers.
+* NVM también puede pinear la versión de Node utilizada en un proyecto a través del archivo .nvmrc, pero necesita que se lo digas de forma implícita en el terminal con nvm use, o bien, instalar tools adicionales como AVN.
+* NVM es lento. Se toma de 2 a 5 segundos en iniciar el bash y en realizar los switchs. Volta es transparente. Además de que lo hace todo por ti, es ultra rápido. 
+
+
+Volta va más allá de NVM y nos permite tener una administración del versionado muchísimo más fina, transparente y ultrarrápida. Una vez que nuestro entorno y proyectos están configurados con Volta, nos podemos olvidar de todo este rollo de versiones para focalizar nuestros esfuerzos en el desarrollo. Volta hace todo el trabajo por nosotros. Así las cosas, integrar Volta en el workflow de un equipo de desarrollo es garantía de seguridad y estabilidad. Muchísima más garantía, si además, utilizamos los ficheros -lock.json para asegurar la integridad del versionado de los packages.
+
+
 
 ## ⛲️ Fuentes
 
 * [🎬 Múltiples versiones de Nodejs con NVM](https://www.youtube.com/watch?v=iG4u1MK7N3I)
 * [Comandos de manejo de npm](https://www.sitepoint.com/npm-guide/)
 * [Installing Multiple Versions of Node.js Using nvm](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/)
+* [Volta. Configurando Node y Package Managers entre proyectos](https://www.enmilocalfunciona.io/volta-configurando-node-y-package-managers-entre-proyectos-adios-nvm/)

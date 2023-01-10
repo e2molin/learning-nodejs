@@ -1,0 +1,68 @@
+# Pruebas al EndPoint de Proyects
+
+### Get All tasks
+GET http://localhost:3001/tasks
+Content-type: application/json
+
+### Get an specific task
+GET http://localhost:3001/tasks/7c24cdaa-7e0c-41c9-a2c1-d074f118e0dd
+Content-type: application/json
+
+
+### Create a task
+POST http://localhost:3001/tasks
+Content-type: application/json
+
+{
+  "name": "Task 3",
+  "priority": 3,
+  "description": "Lorem ipsum task 3",
+  "done": false,
+  "projectId": "9f1521a3-92f0-4c64-b897-f289b6d689b5"
+}
+
+### Create a bulk of tasks
+POST http://localhost:3001/tasks/createManyTasks
+Content-type: application/json
+
+[
+  {
+    "name": "Create CRUD - Request 5",
+    "priority": 1,
+    "description": "Lorem ipsum task",
+    "done": false,
+    "projectId": "83d962a4-8348-4e2f-8d7a-dccff5d22feb"
+  },
+  {
+    "name": "Create CRUD - Create 6",
+    "priority": 2,
+    "description": "Lorem ipsum task 6",
+    "done": false,
+    "projectId": "83d962a4-8348-4e2f-8d7a-dccff5d22feb"
+  },
+  {
+    "name": "Create CRUD - Update 7",
+    "priority": 3,
+    "description": "Lorem ipsum task 7",
+    "done": false,
+    "projectId": "83d962a4-8348-4e2f-8d7a-dccff5d22feb"
+  },
+  {
+    "name": "Create CRUD - Delete 8",
+    "priority": 4,
+    "description": "Lorem ipsum task 8",
+    "done": false,
+    "projectId": "83d962a4-8348-4e2f-8d7a-dccff5d22feb"
+  }
+]
+
+### Actualizar atributos de una tarea
+PUT http://localhost:3001/tasks/1
+Content-type: application/json
+
+{
+"projectId": "7c24cdaa-7e0c-41c9-a2c1-d074f118e0dd"
+}
+
+### Borrar una tarea c3cd29d9-d8e5-47ee-86d6-236e26d7c9e5
+DELETE http://localhost:3001/tasks/c3cd29d9-d8e5-47ee-86d6-236e26d7c9e5
