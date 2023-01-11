@@ -17,6 +17,8 @@ https://youtu.be/vhUw7GkRHdk
 
 ## Middleware
 
+Los middleware son funciones / métodos / procedimientos que se invocan entre el request y el response de la llamada a la API.
+
 Con `next()` vamos al siguiente `route` o `use` que hace *matchea* con el *path* que hemos puesto.
 Si ponemos `next(error)` vamos al middleware que maneje este error.
 

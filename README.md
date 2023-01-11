@@ -305,4 +305,5 @@ https://www.youtube.com/watch?v=29iYdru2KUg
 * 🔗 https://medium.com/bb-tutorials-and-thoughts/how-to-build-nodejs-rest-api-with-express-and-postgresql-674d96d5cb8f
 * 🔗 https://www.youtube.com/watch?v=7NfvC-gOcRc
 * https://www.digitalocean.com/community/tags/node-js?subtype=tutorial
-* https://www.toptal.com/javascript/a-guide-to-npm-the-node-package-manager
+* https://www.toptal.com/javascript/a-guide-to-npm-the-node-package-manage
+* https://www.youtube.com/watch?v=_zGL_MU29zs*
